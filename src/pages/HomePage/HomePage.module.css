@@ -1,0 +1,10 @@
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.loadingContainer {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}

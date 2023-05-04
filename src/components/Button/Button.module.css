@@ -1,0 +1,16 @@
+.primaryButton {
+  background: #f04a38;
+  border-radius: 8px;
+  color: #fff;
+  padding: 10px 50px;
+}
+
+.secondaryButton {
+  background: #ffffff;
+  color: #f04a38;
+  border-radius: 8px;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
