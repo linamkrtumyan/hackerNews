@@ -25,11 +25,10 @@ interface INewsDetails {
 type CommentsIds = [];
 
 type Comment = {
-    author: string;
-    text: string;
-    kids?: [];
-    time: number;   
-   
+  author: string;
+  text: string;
+  kids?: [];
+  time: number;
 };
 
 function NewsPage() {
@@ -40,13 +39,27 @@ function NewsPage() {
   const [commentIds, setCommentIds] = useState<CommentsIds>();
   const [comments, setComments] = useState<Comment[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingComments, setIsLoadingComments] = useState(true);
 
-  useEffect(() => {
+  const fetchNews = () => {
     getStory(id).then((data) => {
       data && setNews(data);
-      setCommentIds(data.kids);
       setIsLoading(false);
     });
+  };
+
+  const fetchComments = () => {
+    setIsLoadingComments(true);
+    getStory(id).then((data) => {
+      data && setCommentIds(data.kids);
+      setComments([]);
+      setIsLoadingComments(false);
+    });
+  };
+
+  useEffect(() => {
+    fetchComments();
+    fetchNews();
   }, []);
 
   useEffect(() => {
@@ -54,7 +67,7 @@ function NewsPage() {
       commentIds.map((id) => {
         getStory(id).then((data) => {
           data &&
-            setComments((prevState:Comment[]) => {
+            setComments((prevState: Comment[]) => {
               return [
                 ...prevState,
                 {
@@ -83,14 +96,27 @@ function NewsPage() {
         Back to newslist
       </Button>
       <NewsCard news={news} />
-      {news.descendants > 0 && (
-        <p>Comments: ({news.descendants}) </p>
+
+      {isLoadingComments ? (
+        <Spinner />
+      ) : (
+        <>
+          {news.descendants > 0 && (
+            <div className="flex justify-between" >
+             
+              <p>Comments: ({news.descendants}) </p>
+              <Button
+                variant="primary"
+                onClick={fetchComments}
+                children="Update comments"
+              />
+            </div>
+          )}
+          {comments.map((com, index) => {
+            return <CommentItem comment={com} key={index} />;
+          })}
+        </>
       )}
-      {comments.map((com, index ) => {
-        return (
-             <CommentItem comment={com} key={index} />
-        );
-      })}
     </div>
   ) : null;
 }
