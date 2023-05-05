@@ -4,18 +4,11 @@ import { CiChat1 } from "react-icons/ci";
 import { getStory } from "../../services/hnApi";
 import { timeConverter } from "../../utils/timeConverter";
 
+import { Comment, IComment } from "../../model";
+
 import styles from "./CommentItem.module.css";
 
-type Comment ={
-  comment: IComment
-}
 
-export interface IComment {
-    author?: string;
-    text?: string;
-    kids?: [];
-    time?: number;
-}
 
 function CommentItem({comment}: Comment) {
 

@@ -5,20 +5,7 @@ import { timeConverter } from "../../utils/timeConverter";
 
 import styles from "./NewsCard.module.css";
 
-type News = {
-    news: INews
-}
-
-interface INews {
-    url: string;
-    title: string;
-    by: string;
-    time: string;
-    kids: [];
-    score: number;
-    descendants: number;
-    text: string;
-}
+import { News } from "../../model";
 
 export const NewsCard = memo(function NewsCard({ news }: News) {
   return (

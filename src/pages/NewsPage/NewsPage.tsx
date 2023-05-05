@@ -11,33 +11,16 @@ import Button from "../../components/Button/Button";
 import Spinner from "../../components/Spinner/Spinner";
 import { NewsCard } from "../../components/NewsCard/NewsCard";
 
-interface INewsDetails {
-  url: string;
-  title: string;
-  by: string;
-  time: string;
-  kids: [];
-  score: number;
-  descendants: number;
-  text: string;
-}
+import { IComment, IStory } from "../../model";
 
-type CommentsIds = [];
-
-type Comment = {
-  author: string;
-  text: string;
-  kids?: [];
-  time: number;
-};
 
 function NewsPage() {
   const navigate = useNavigate();
   let { id } = useParams();
 
-  const [news, setNews] = useState<INewsDetails>();
-  const [commentIds, setCommentIds] = useState<CommentsIds>();
-  const [comments, setComments] = useState<Comment[]>([]);
+  const [news, setNews] = useState<IStory>();
+  const [commentIds, setCommentIds] = useState<[]>();
+  const [comments, setComments] = useState<IComment[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingComments, setIsLoadingComments] = useState(true);
 
@@ -67,7 +50,7 @@ function NewsPage() {
       commentIds.map((id) => {
         getStory(id).then((data) => {
           data &&
-            setComments((prevState: Comment[]) => {
+            setComments((prevState: IComment[]) => {
               return [
                 ...prevState,
                 {

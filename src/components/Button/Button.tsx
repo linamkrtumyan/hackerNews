@@ -1,13 +1,10 @@
 import React from "react";
+
+import { ButtonProps } from "../../model";
+
 import styles from "./Button.module.css";
 
-interface Props {
-  variant: "primary" | "secondary";
-  children?: React.ReactNode;
-  onClick: () => void;
-}
-
-const Button: React.FC<Props> = ({
+const Button: React.FC<ButtonProps> = ({
   variant = "primary",
   children,
   onClick,

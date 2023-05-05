@@ -5,19 +5,13 @@ import { Link } from "react-router-dom";
 import { getStory } from "../../services/hnApi";
 import { timeConverter } from "../../utils/timeConverter";
 
+import { IStory } from "../../model";
+
 import styles from "./NewsItem.module.css";
 
-export interface INewsItem {
-  url: string;
-  title: string;
-  by: string;
-  time: string;
-  kids: [];
-  score: number;
-  descendants: number;
-}
+
 export const NewsItem = memo(function NewsItem(props: { storyId:number }) {
-  const [story, setStory] = useState<INewsItem>();
+  const [story, setStory] = useState<IStory>();
 
   useEffect(() => {
     getStory(props.storyId).then((data) => data && data.url && setStory(data));
